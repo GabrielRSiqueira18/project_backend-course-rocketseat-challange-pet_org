@@ -39,15 +39,14 @@ export class ImMemoryPetRepository implements PetsRepository {
 		return pet
 	}
 
-	async findByCityName(cityName: string, stateName: string) {
+	async findByCityName(cityName: string) {
 		const pets: Pet[] = this.items.filter((item) => {
 			const itemCityNameLowerCase = item.city.toLowerCase()
 			const itemStateNameLowerCase = item.state.toLowerCase()
 			const paramsCityNameLowerCase = cityName.toLowerCase()
-			const paramsStateNameLowerCase = stateName.toLowerCase()
 			const isPetAbleToAdopt = item.adopted_at === null ? true : false
 
-			return (itemCityNameLowerCase === paramsCityNameLowerCase) && (itemStateNameLowerCase === paramsStateNameLowerCase) && isPetAbleToAdopt
+			return (itemCityNameLowerCase === paramsCityNameLowerCase) && isPetAbleToAdopt
 		})
 
 		return pets

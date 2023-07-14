@@ -12,8 +12,8 @@ afterAll(async () => {
 	await app.close()
 })
 
-describe('Filter Pet Using Age Controller', () => {
-	it('should be filter pet by age', async () => {
+describe('Filter Pet Using City and State Controller', () => {
+	it('should be filter pet by city and state', async () => {
 		await prisma.org.create({
 			data: {
 				id: '123456',
@@ -51,13 +51,13 @@ describe('Filter Pet Using Age Controller', () => {
 				name: 'Cazuza 2',
 				about: 'Muito carinho 2',
 				age: 10,
-				city: 'Itatiba 2',
-				state: 'São Paulo 2',
+				city: 'Itatiba',
+				state: 'São Paulo',
 				energy_level: 'Alta 2',
 				environment: 'Casa 2',
 				independency_level: 'Muito 2',
 				org_id: '123456',
-				port: 'Grande 2'
+				port: 'Grande'
 			}
 		})
 
@@ -79,7 +79,7 @@ describe('Filter Pet Using Age Controller', () => {
 		})
 
 		const response = await request(app.server)
-			.get('/pets/filter/age/10')
+			.get('/pets/filter/city/Itatiba')
 
 		expect(response.statusCode).toEqual(200)
 		expect(response.body.pets).toHaveLength(2)

@@ -3,7 +3,6 @@ import { PetsRepository } from '../repositories/pet-repository';
 
 interface ListPetsAbleToadoptionInCityRequest {
 	petCity: string
-	petState: string
 }
 
 interface ListPetsAbleToadoptionInCityResponse {
@@ -15,8 +14,8 @@ export class ListPetsAbleToadoptionInCityService {
 		private petsRepository: PetsRepository,
 	) {}
 
-	async execute({ petCity, petState }: ListPetsAbleToadoptionInCityRequest): Promise<ListPetsAbleToadoptionInCityResponse> {
-		const pets = await this.petsRepository.findByCityName(petCity, petState)
+	async execute({ petCity }: ListPetsAbleToadoptionInCityRequest): Promise<ListPetsAbleToadoptionInCityResponse> {
+		const pets = await this.petsRepository.findByCityName(petCity)
 
 		return { pets } 
 	}

@@ -55,7 +55,6 @@ describe('List Pet Using City Name Service', () => {
 
 		const { pets } = await sut.execute({
 			petCity: 'Itatiba',
-			petState: 'São Paulo',
 		})
 
 		expect(pets).toHaveLength(2)
