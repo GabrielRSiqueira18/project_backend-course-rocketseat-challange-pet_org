@@ -28,11 +28,12 @@ model Pet {
 
 model Org {
   id               String @id @default(uuid())
+  name             String @unique
   responsible_name String
   email            String @unique
   cep              String
   addres           String
-  whtsapp          String
+  whatsapp         String
   password_hash    String
 
   Pet Pet[]
