@@ -53,20 +53,6 @@ export class ImMemoryPetRepository implements PetsRepository {
 		return pets
 	}
 
-	async findByCharacteristics(query: string) {
-		const pets = this.items.filter((item) => {
-			const petAgeString = item.age.toString()
-			const energyLevel = item.energy_level
-			const environment = item.environment
-			const idependencyLevel = item.independency_level
-			const port = item.port
-
-			return petAgeString.includes(query) || energyLevel.includes(query) || environment.includes(query) ||  idependencyLevel.includes(query) ||  port.includes(query) 
-		})
-
-		return pets
-	}
-
 	async findByAge(petAge: number) {
 		const pets = this.items.filter(item => item.age === petAge)
 

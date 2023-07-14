@@ -1,5 +1,4 @@
 import { Org, Prisma } from "@prisma/client";
-import { GetResult } from "@prisma/client/runtime/library";
 import { OrgRepository } from "../org-repository";
 import { randomUUID } from "crypto";
 
