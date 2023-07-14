@@ -12,6 +12,7 @@ datasource db {
 
 model Pet {
   id                 String    @id @default(uuid())
+  name               String
   about              String
   age                Int
   port               String
