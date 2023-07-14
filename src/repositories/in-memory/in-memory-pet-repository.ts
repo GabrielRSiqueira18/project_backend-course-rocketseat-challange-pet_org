@@ -30,7 +30,47 @@ export class ImMemoryPetRepository implements PetsRepository {
 	}
 	
 	async findByCityName(cityName: string, stateName: string) {
-		const pets: Pet[] = this.items.filter(item => item.city.toLowerCase() === cityName.toLowerCase() && item.state.toLowerCase() === stateName.toLowerCase())
+		const pets: Pet[] = this.items.filter((item) => {
+			const itemCityNameLowerCase = item.city.toLowerCase()
+			const itemStateNameLowerCase = item.state.toLowerCase()
+			const paramsCityNameLowerCase = cityName.toLowerCase()
+			const paramsStateNameLowerCase = stateName.toLowerCase()
+			const isPetAbleToAdopt = item.adopted_at === null ? true : false
+
+			return (itemCityNameLowerCase === paramsCityNameLowerCase) && (itemStateNameLowerCase === paramsStateNameLowerCase) && isPetAbleToAdopt
+		})
+
+		return pets
+	}
+
+	async findByCharacteristics(query: string) {
+		const pets = this.items.filter((item) => {
+			const petAgeString = item.age.toString()
+			const energyLevel = item.energy_level
+			const environment = item.environment
+			const idependencyLevel = item.independency_level
+			const port = item.port
+
+			return petAgeString.includes(query) || energyLevel.includes(query) || environment.includes(query) ||  idependencyLevel.includes(query) ||  port.includes(query) 
+		})
+
+		return pets
+	}
+
+	async findByAge(petAge: number) {
+		const pets = this.items.filter(item => item.age === petAge)
+
+		return pets
+	}
+
+	async findByPort(petPort: string) {
+		const pets = this.items.filter(item => item.port.toLowerCase() === petPort.toLowerCase())
+
+		return pets
+	}
+
+	async findByEnergyLevel(petEnergyLevel: string) {
+		const pets = this.items.filter(item => item.energy_level.toLowerCase() === petEnergyLevel.toLowerCase())
 
 		return pets
 	}
