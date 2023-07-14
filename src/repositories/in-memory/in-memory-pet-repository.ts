@@ -10,7 +10,7 @@ export class ImMemoryPetRepository implements PetsRepository {
 	
 	async create(data: Prisma.PetUncheckedCreateInput) {
 		const pet: Pet = {
-			id: randomUUID(),
+			id: data.id ?? randomUUID(),
 			name: data.name,
 			about: data.about,
 			adopted_at: data.adopted_at ?? null,
@@ -29,6 +29,16 @@ export class ImMemoryPetRepository implements PetsRepository {
 		return pet
 	}
 	
+	async findById(petId: string) {
+		const pet = this.items.find(item => item.id === petId)
+
+		if(!pet) {
+			return null
+		}
+
+		return pet
+	}
+
 	async findByCityName(cityName: string, stateName: string) {
 		const pets: Pet[] = this.items.filter((item) => {
 			const itemCityNameLowerCase = item.city.toLowerCase()

@@ -2,16 +2,16 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { InMemoryOrgsRepository } from '../../repositories/in-memory/in-memory-orgs-repository'
 import { ImMemoryPetRepository } from '../../repositories/in-memory/in-memory-pet-repository'
 import { hash } from 'bcryptjs'
-import { FilterPetByPortService } from '../filter-pet-by-port'
+import { GetPetService } from '../get-pet'
 
 let petsRepository: ImMemoryPetRepository
 let orgsRepository: InMemoryOrgsRepository
-let sut: FilterPetByPortService
+let sut: GetPetService
 
 beforeEach(async () => {
 	petsRepository = new ImMemoryPetRepository()
 	orgsRepository = new InMemoryOrgsRepository()
-	sut = new FilterPetByPortService(petsRepository)
+	sut = new GetPetService(petsRepository)
 
 	await orgsRepository.create({
 		id: 'org-01',
@@ -25,9 +25,10 @@ beforeEach(async () => {
 	})
 })
 
-describe('Filter Pets By Port Service', () => {
-	it('should be list pets using port params', async () => {
+describe('Get Pet Service', () => {
+	it('should be get pet', async () => {
 		await petsRepository.create({
+			id: 'pet-01',
 			name: 'Cazuza 1',
 			about: 'Muito carinho 1',
 			age: 10,
@@ -41,6 +42,7 @@ describe('Filter Pets By Port Service', () => {
 		})
 
 		await petsRepository.create({
+			id: 'pet-02',
 			name: 'Cazuza 2',
 			about: 'Muito carinho 2',
 			age: 10,
@@ -54,6 +56,7 @@ describe('Filter Pets By Port Service', () => {
 		})
 
 		await petsRepository.create({
+			id: 'pet-03',
 			name: 'Cazuza 3',
 			about: 'Muito carinho 3',
 			age: 20,
@@ -66,18 +69,15 @@ describe('Filter Pets By Port Service', () => {
 			port: 'Grande'
 		})
 
-		const { pets } = await sut.execute({
-			q: 'grande',
+		const { pet } = await sut.execute({
+			id: 'pet-02'
 		})
 
-		expect(pets).toHaveLength(2)
-		expect(pets).toEqual([
-			expect.objectContaining({
-				name: 'Cazuza 2',
-			}),
-			expect.objectContaining({
-				name: 'Cazuza 3',
-			})
-		])
+		expect(pet.id).toEqual(expect.any(String))
+		expect(pet).toEqual(expect.objectContaining({
+			name: 'Cazuza 2',
+			about: 'Muito carinho 2',
+			age: 10,
+		}))
 	})
 })	

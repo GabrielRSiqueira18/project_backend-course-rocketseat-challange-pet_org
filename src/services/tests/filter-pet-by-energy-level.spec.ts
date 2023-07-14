@@ -26,7 +26,7 @@ beforeEach(async () => {
 })
 
 describe('Filter Pets By Energy Level Service', () => {
-	it('should be list pets using age params', async () => {
+	it('should be list pets using energy level params', async () => {
 		await petsRepository.create({
 			name: 'Cazuza 1',
 			about: 'Muito carinho 1',
