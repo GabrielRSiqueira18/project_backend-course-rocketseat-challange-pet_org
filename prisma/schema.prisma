@@ -15,6 +15,8 @@ model Pet {
   name               String
   about              String
   age                Int
+  city               String
+  state              String
   port               String
   energy_level       String
   independency_level String

@@ -3,6 +3,7 @@ import { InMemoryOrgsRepository } from '../../repositories/in-memory/in-memory-o
 import { ImMemoryPetRepository } from '../../repositories/in-memory/in-memory-pet-repository'
 import { CreatePetService } from '../create-pet'
 import { hash } from 'bcryptjs'
+import { InvalidCredentialsError } from '../error/invalid-credentials-error'
 
 let petsRepository: ImMemoryPetRepository
 let orgsRepository: InMemoryOrgsRepository
@@ -31,6 +32,8 @@ describe('Create Pet Service', () => {
 			name: 'Cazuza',
 			about: 'Muito carinho',
 			age: 10,
+			city: 'Itatiba',
+			state: 'São Paulo',
 			energy_level: 'Alta',
 			environment: 'Casa',
 			independency_level: 'Muito',
@@ -40,5 +43,20 @@ describe('Create Pet Service', () => {
 
 		expect(pet.id).toEqual(expect.any(String))
 		expect(pet.org_id).toEqual('org-01')
+	})
+
+	it('should be not create a new pet with inexistent org', async () => {
+		await expect(() => sut.execute({
+			name: 'Cazuza',
+			about: 'Muito carinho',
+			age: 10,
+			city: 'Itatiba',
+			state: 'São Paulo',
+			energy_level: 'Alta',
+			environment: 'Casa',
+			independency_level: 'Muito',
+			orgId: 'org id inexistent',
+			port: 'Grande'
+		})).rejects.toBeInstanceOf(InvalidCredentialsError)
 	})
 })	

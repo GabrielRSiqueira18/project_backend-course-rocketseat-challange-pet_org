@@ -1,5 +1,5 @@
 export class OrgArleayExistError extends Error {
 	constructor() {
-		super('Invalid credentials')
+		super('Org arleady exsit.')
 	}
 }

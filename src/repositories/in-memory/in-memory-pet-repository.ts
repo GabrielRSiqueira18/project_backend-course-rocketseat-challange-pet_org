@@ -1,6 +1,7 @@
 import { Pet, Prisma } from "@prisma/client";
 import { PetsRepository } from "../pet-repository";
 import { randomUUID } from "crypto";
+import { GetResult } from "@prisma/client/runtime/library";
 
 export class ImMemoryPetRepository implements PetsRepository {
 	constructor() {}
@@ -13,6 +14,8 @@ export class ImMemoryPetRepository implements PetsRepository {
 			name: data.name,
 			about: data.about,
 			adopted_at: data.adopted_at ?? null,
+			city: data.city,
+			state: data.state,
 			age: data.age,
 			energy_level: data.energy_level,
 			environment: data.environment,
@@ -24,5 +27,11 @@ export class ImMemoryPetRepository implements PetsRepository {
 		this.items.push(pet)
 
 		return pet
+	}
+	
+	async findByCityName(cityName: string, stateName: string) {
+		const pets: Pet[] = this.items.filter(item => item.city.toLowerCase() === cityName.toLowerCase() && item.state.toLowerCase() === stateName.toLowerCase())
+
+		return pets
 	}
 }
