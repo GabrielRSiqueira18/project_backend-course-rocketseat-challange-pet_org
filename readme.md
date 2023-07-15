@@ -9,7 +9,7 @@ FindAFriend Challange 03
 - [x] Deve ser possível filtrar pets por suas características;
 - [x] Deve ser possível visualizar detalhes de um pet para adoção;
 - [x] Deve ser possível cadastrar como uma ORG;
-- [] Deve ser possível fazer login como uma ORG;
+- [x] Deve ser possível fazer login como uma ORG;
 
 ## RNs (Regras de Negócio)
 
@@ -23,4 +23,4 @@ FindAFriend Challange 03
 ## RNFs (Requisitos Não Funcionais)
 
 - [x] A senha da ORG precisa ser criptografada;
-- [] A ORG deve ser indentificada por um JWT (Jason Web Token)
+- [x] A ORG deve ser indentificada por um JWT (Jason Web Token)
